@@ -36,6 +36,8 @@
 #include "stm32f4xx_it.h"
 
 /* USER CODE BEGIN 0 */
+#include "sys_time.h"
+#include "usart.h"
 
 /* USER CODE END 0 */
 
@@ -181,7 +183,7 @@ void SysTick_Handler(void)
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-
+  UpdateSysTime(1);
   /* USER CODE END SysTick_IRQn 1 */
 }
 
@@ -198,10 +200,10 @@ void SysTick_Handler(void)
 void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
-    if(LL_TIM_IsActiveFlag_UPDATE(TIM2))
-    {
-        LL_TIM_ClearFlag_UPDATE(TIM2);
-    }
+  if(LL_TIM_IsActiveFlag_UPDATE(TIM2))
+  {
+    LL_TIM_ClearFlag_UPDATE(TIM2);
+  }
   /* USER CODE END TIM2_IRQn 0 */
   /* USER CODE BEGIN TIM2_IRQn 1 */
 
@@ -214,7 +216,37 @@ void TIM2_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
+    uint8_t data;
+    uint16_t c;
 
+    if(LL_USART_IsActiveFlag_RXNE(USART2))
+    {   //接收DR有数据
+        /* Read one byte from the receive data register */
+        c = LL_USART_ReceiveData8(USART2);
+    }
+
+    if(LL_USART_IsActiveFlag_TXE(USART2))
+    {   //发送DR空
+        if(CL_QueuePoll(&USART2_SendBuffer, &data) == CL_SUCCESS)
+        {
+            LL_USART_TransmitData8(USART2, data);
+        }
+        else
+        {
+            LL_USART_DisableIT_TXE(USART2);
+        }
+    }
+
+    if(LL_USART_IsActiveFlag_LBD(USART2))
+    {   //LIN mode, break detected
+        LL_USART_ClearFlag_LBD(USART2);
+    }
+
+    if(LL_USART_IsActiveFlag_ORE(USART2))
+    {
+        c = LL_USART_ReceiveData8(USART2); 
+    //        LIN_RecvData(c);
+    }
   /* USER CODE END USART2_IRQn 0 */
   /* USER CODE BEGIN USART2_IRQn 1 */
 

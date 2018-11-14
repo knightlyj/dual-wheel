@@ -62,6 +62,7 @@
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN Private defines */
+#define WDG_FEED_INTERVAL   (7 * 1000)  //喂狗间隔,单位是ms
 
 /* USER CODE END Private defines */
 
@@ -70,6 +71,7 @@ extern void _Error_Handler(char *, int);
 void MX_IWDG_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+void IWDG_Process(void);
 
 /* USER CODE END Prototypes */
 

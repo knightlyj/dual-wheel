@@ -59,10 +59,12 @@
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
+#include "cl_queue.h"
 
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN Private defines */
+CL_QUEUE_DECL(USART2_SendBuffer);
 
 /* USER CODE END Private defines */
 

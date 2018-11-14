@@ -51,7 +51,7 @@
 #include "iwdg.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "sys_time.h"
 /* USER CODE END 0 */
 
 /* IWDG init function */
@@ -64,6 +64,8 @@ void MX_IWDG_Init(void)
 
   LL_IWDG_SetPrescaler(IWDG, LL_IWDG_PRESCALER_256);
 
+  LL_IWDG_SetReloadCounter(IWDG, 1250);
+
   while (LL_IWDG_IsReady(IWDG) != 1)
   {
   }
@@ -73,6 +75,17 @@ void MX_IWDG_Init(void)
 }
 
 /* USER CODE BEGIN 1 */
+void IWDG_Process(void)
+{
+    static uint64_t lastFeedTime = 0;
+
+    if(TimeElapsed(lastFeedTime) > WDG_FEED_INTERVAL)
+    {   //达到喂狗间隔时间,喂狗
+        SetToCurTime(&lastFeedTime);
+        LL_IWDG_ReloadCounter(IWDG);
+//        Log("定时喂狗\r\n");
+    }
+}
 
 /* USER CODE END 1 */
 

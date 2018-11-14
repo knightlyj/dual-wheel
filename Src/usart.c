@@ -54,6 +54,8 @@
 
 /* USER CODE BEGIN 0 */
 
+CL_QUEUE_DEF_INIT(USART2_SendBuffer, 1024, uint8_t, );
+
 /* USER CODE END 0 */
 
 /* USART2 init function */
@@ -68,23 +70,15 @@ void MX_USART2_UART_Init(void)
   
   /**USART2 GPIO Configuration  
   PA2   ------> USART2_TX
-  PD6   ------> USART2_RX 
+  PA3   ------> USART2_RX 
   */
-  GPIO_InitStruct.Pin = LL_GPIO_PIN_2;
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_2|LL_GPIO_PIN_3;
   GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
   GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
   GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
   GPIO_InitStruct.Alternate = LL_GPIO_AF_7;
   LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
-  GPIO_InitStruct.Pin = LL_GPIO_PIN_6;
-  GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
-  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
-  GPIO_InitStruct.Pull = LL_GPIO_PULL_UP;
-  GPIO_InitStruct.Alternate = LL_GPIO_AF_7;
-  LL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
   /* USART2 interrupt Init */
   NVIC_SetPriority(USART2_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),0, 0));
@@ -106,6 +100,27 @@ void MX_USART2_UART_Init(void)
 }
 
 /* USER CODE BEGIN 1 */
+
+
+//
+int fputc(int ch, FILE *f)
+{
+    uint8_t data = ch;
+    int res;
+
+    res = CL_QueueAdd(&USART2_SendBuffer, &data);
+
+    LL_USART_EnableIT_TXE(USART2);
+    if(res == CL_SUCCESS)
+    {
+        return ch;
+    }
+    else
+    {
+        return EOF;
+    }
+
+}
 
 /* USER CODE END 1 */
 

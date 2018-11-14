@@ -57,6 +57,7 @@
 
 /* USER CODE BEGIN Includes */
 #include "hl_timer.h"
+#include "sys_time.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -86,6 +87,8 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+  uint64_t lastPrintTime = 0;
+
   SystemClock_Config();
   /* USER CODE END 1 */
 
@@ -109,21 +112,26 @@ int main(void)
   MX_GPIO_Init();
   MX_IWDG_Init();
   MX_USART2_UART_Init();
-  //MX_TIM2_Init();
   MX_USB_DEVICE_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HL_TimerStart(HL_Timer2, HL_TimerAutoLoad, 1);
+//  HL_TimerStart(HL_Timer2, HL_TimerAutoLoad, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  Log("init done\r\n");
   while (1)
   {
-
+    IWDG_Process();
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-
+    if(TimeElapsed(lastPrintTime) > 1000)
+    {
+      SetToCurTime(&lastPrintTime);
+      Log("%llds\r\n", g_sysTotalTime / 1000);
+    }
   }
   /* USER CODE END 3 */
 
