@@ -50,13 +50,11 @@
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "iwdg.h"
-#include "tim.h"
 #include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-#include "hl_timer.h"
 #include "sys_time.h"
 /* USER CODE END Includes */
 
@@ -88,6 +86,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
   uint64_t lastPrintTime = 0;
+  uint8_t reg;
 
   SystemClock_Config();
   /* USER CODE END 1 */
@@ -113,14 +112,14 @@ int main(void)
   MX_IWDG_Init();
   MX_USART2_UART_Init();
   MX_USB_DEVICE_Init();
-  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-//  HL_TimerStart(HL_Timer2, HL_TimerAutoLoad, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  LL_USART_EnableIT_RXNE(USART2);
   Log("init done\r\n");
+
   while (1)
   {
     IWDG_Process();
@@ -131,6 +130,7 @@ int main(void)
     {
       SetToCurTime(&lastPrintTime);
       Log("%llds\r\n", g_sysTotalTime / 1000);
+
     }
   }
   /* USER CODE END 3 */

@@ -195,34 +195,17 @@ void SysTick_Handler(void)
 /******************************************************************************/
 
 /**
-* @brief This function handles TIM2 global interrupt.
-*/
-void TIM2_IRQHandler(void)
-{
-  /* USER CODE BEGIN TIM2_IRQn 0 */
-  if(LL_TIM_IsActiveFlag_UPDATE(TIM2))
-  {
-    LL_TIM_ClearFlag_UPDATE(TIM2);
-  }
-  /* USER CODE END TIM2_IRQn 0 */
-  /* USER CODE BEGIN TIM2_IRQn 1 */
-
-  /* USER CODE END TIM2_IRQn 1 */
-}
-
-/**
 * @brief This function handles USART2 global interrupt.
 */
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
     uint8_t data;
-    uint16_t c;
 
     if(LL_USART_IsActiveFlag_RXNE(USART2))
     {   //接收DR有数据
         /* Read one byte from the receive data register */
-        c = LL_USART_ReceiveData8(USART2);
+        data = LL_USART_ReceiveData8(USART2);
     }
 
     if(LL_USART_IsActiveFlag_TXE(USART2))
@@ -244,7 +227,7 @@ void USART2_IRQHandler(void)
 
     if(LL_USART_IsActiveFlag_ORE(USART2))
     {
-        c = LL_USART_ReceiveData8(USART2); 
+        data = LL_USART_ReceiveData8(USART2); 
     //        LIN_RecvData(c);
     }
   /* USER CODE END USART2_IRQn 0 */
