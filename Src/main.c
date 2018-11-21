@@ -133,8 +133,10 @@ int main(void)
     {
       SetToCurTime(&lastPrintTime);
 //      Log("%llds\r\n", g_sysTotalTime / 1000);
+      LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_1);
       if(AccGro_GetData(&sensorData) == CL_SUCCESS)
       {
+        LL_GPIO_SetOutputPin(GPIOA, LL_GPIO_PIN_1);
         totalAccel = sqrt(sensorData.acc_x * sensorData.acc_x
                          + sensorData.acc_y * sensorData.acc_y
                          + sensorData.acc_z * sensorData.acc_z);

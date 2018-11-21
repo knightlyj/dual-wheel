@@ -2,6 +2,8 @@
 #include "bmi160.h"
 #include "spi_gpio.h"
 #include "sys_time.h"
+#include "stm32f4xx_ll_gpio.h"
+
 
 #define __ACC_RANGE     BMI160_ACCEL_RANGE_8G
 #define __GYRO_RANGE    BMI160_GYRO_RANGE_2000_DPS
@@ -9,19 +11,25 @@
 static CL_BOOL initialized = CL_FALSE;
 static struct bmi160_dev sensor;
 
-void AccGryo_DelayMS(uint32_t period)
+void AccGyro_DelayMS(uint32_t period)
 {
     DelayMs((uint16_t)period);
 }
 
+void AccGyro_DelayFast(uint32_t period)
+{
+    return;        
+}
 
-int8_t AccGryo_Read(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len)
+
+
+int8_t AccGyro_Read(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len)
 {
     SPI_ReadMultiReg(reg_addr, data, len);
     return BMI160_OK;
 }
 
-int8_t AccGryo_Write(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len)
+int8_t AccGyro_Write(uint8_t dev_addr, uint8_t reg_addr, uint8_t *data, uint16_t len)
 {
     SPI_WriteMultiReg(reg_addr, data, len);
     return BMI160_OK;
@@ -50,9 +58,9 @@ CL_RESULT AccGyro_Init(void)
 
     sensor.id = 0;
     sensor.interface = BMI160_SPI_INTF;
-    sensor.read = AccGryo_Read;
-    sensor.write = AccGryo_Write;
-    sensor.delay_ms = AccGryo_DelayMS;
+    sensor.read = AccGyro_Read;
+    sensor.write = AccGyro_Write;
+    sensor.delay_ms = AccGyro_DelayMS;
 
     res = bmi160_init(&sensor); //œ»≥ı ºªØ
     if(res == BMI160_OK)
@@ -110,10 +118,9 @@ CL_RESULT AccGro_GetData(AccGyro_Data_t* data)
     struct bmi160_sensor_data accel;
     struct bmi160_sensor_data gyro;
 
+    sensor.delay_ms = AccGyro_DelayFast;
     res = bmi160_get_sensor_data((BMI160_ACCEL_SEL | BMI160_GYRO_SEL), &accel, &gyro, &sensor);
-
-
-
+    
     if(res == BMI160_OK)
     {
 //        Log("acc: %d, %d, %d\r\n", accel.x, accel.y, accel.z);
