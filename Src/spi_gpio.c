@@ -1,17 +1,17 @@
 #include "spi_gpio.h"
 #include "stm32f4xx_ll_gpio.h"
 
-#define SPI_CS_PORT       GPIOA
-#define SPI_CS_PIN         LL_GPIO_PIN_4
+#define SPI_CS_PORT         GPIOA
+#define SPI_CS_PIN          LL_GPIO_PIN_4
 
-#define SPI_MOSI_PORT     GPIOA
-#define SPI_MOSI_PIN       LL_GPIO_PIN_7
+#define SPI_MOSI_PORT       GPIOA
+#define SPI_MOSI_PIN        LL_GPIO_PIN_7
 
-#define SPI_CLK_PORT      GPIOA
-#define SPI_CLK_PIN        LL_GPIO_PIN_5
+#define SPI_CLK_PORT        GPIOA
+#define SPI_CLK_PIN         LL_GPIO_PIN_5
 
-#define SPI_MISO_PORT     GPIOA
-#define SPI_MISO_PIN       LL_GPIO_PIN_6
+#define SPI_MISO_PORT       GPIOA
+#define SPI_MISO_PIN        LL_GPIO_PIN_6
 
 //------------CS-------------------
 CL_STATIC_INLINE void CS_Low()
@@ -116,11 +116,26 @@ uint8_t SPI_ReadReg(uint8_t reg)
 {
     uint8_t res;
     CS_Low();
-    SPI_SendFast(0x80 | reg);
+    SPI_SendFast(reg);
     res = SPI_SendFast(0xff);
     CS_High();
     return res;
 }
+
+void SPI_ReadMultiReg(uint8_t reg, uint8_t* buff, uint16_t length)
+{
+    uint16_t i;
+    CS_Low();
+    SPI_SendFast(reg);
+    for(i = 0; i < length; i++)
+    {
+        buff[i] = SPI_SendFast(0xff);
+    }
+    CS_High();
+    
+}
+
+
 
 void SPI_WriteReg(uint8_t reg, uint8_t value)
 {
@@ -129,4 +144,18 @@ void SPI_WriteReg(uint8_t reg, uint8_t value)
     SPI_SendFast(value);
     CS_High();
 }
+
+void SPI_WriteMultiReg(uint8_t reg, uint8_t* buff, uint16_t length)
+{
+    uint16_t i;
+    CS_Low();
+    SPI_SendFast(reg);
+    for(i = 0; i < length; i++)
+    {
+        SPI_SendFast(buff[i]);
+    }
+    CS_High();
+}
+
+
 

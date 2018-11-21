@@ -56,6 +56,7 @@
 
 /* USER CODE BEGIN Includes */
 #include "sys_time.h"
+#include "acc_gyro.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -74,6 +75,14 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+static void SPI_Delay(int x)
+{
+    int i;
+    for(i = 0; i < x; i++)  
+    {
+        __NOP();
+    }
+}
 
 /* USER CODE END 0 */
 
@@ -86,7 +95,6 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
   uint64_t lastPrintTime = 0;
-  uint8_t reg;
 
   SystemClock_Config();
   /* USER CODE END 1 */
@@ -118,6 +126,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   LL_USART_EnableIT_RXNE(USART2);
+  AccGyro_Init();
   Log("init done\r\n");
 
   while (1)
@@ -130,8 +139,9 @@ int main(void)
     {
       SetToCurTime(&lastPrintTime);
       Log("%llds\r\n", g_sysTotalTime / 1000);
-
+      
     }
+
   }
   /* USER CODE END 3 */
 

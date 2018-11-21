@@ -351,7 +351,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_FULL_LL_DRIVER,USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;   ../Drivers/STM32F4xx_HAL_Driver/Inc;   ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;   ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;   ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc;   ../Drivers/CMSIS/Device/ST/STM32F4xx/Include;   ../Drivers/CMSIS/Include;   ../Library/clib</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Library/clib;../Drivers/BMI160</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -453,9 +453,9 @@
               <FilePath>..\Src\spi_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>bmi160.c</FileName>
+              <FileName>acc_gyro.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Src\bmi160.c</FilePath>
+              <FilePath>..\Src\acc_gyro.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -586,6 +586,16 @@
               <FileName>system_stm32f4xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>..//Src/system_stm32f4xx.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Drivers/BMI160</GroupName>
+          <Files>
+            <File>
+              <FileName>bmi160.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Drivers\BMI160\bmi160.c</FilePath>
             </File>
           </Files>
         </Group>
