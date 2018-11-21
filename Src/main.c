@@ -57,6 +57,7 @@
 /* USER CODE BEGIN Includes */
 #include "sys_time.h"
 #include "acc_gyro.h"
+#include "math.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -75,15 +76,6 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-static void SPI_Delay(int x)
-{
-    int i;
-    for(i = 0; i < x; i++)  
-    {
-        __NOP();
-    }
-}
-
 /* USER CODE END 0 */
 
 /**
@@ -95,7 +87,9 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
   uint64_t lastPrintTime = 0;
-
+  AccGyro_Data_t sensorData;
+  float totalAccel;
+  
   SystemClock_Config();
   /* USER CODE END 1 */
 
@@ -138,8 +132,20 @@ int main(void)
     if(TimeElapsed(lastPrintTime) > 1000)
     {
       SetToCurTime(&lastPrintTime);
-      Log("%llds\r\n", g_sysTotalTime / 1000);
-      
+//      Log("%llds\r\n", g_sysTotalTime / 1000);
+      if(AccGro_GetData(&sensorData) == CL_SUCCESS)
+      {
+        totalAccel = sqrt(sensorData.acc_x * sensorData.acc_x
+                         + sensorData.acc_y * sensorData.acc_y
+                         + sensorData.acc_z * sensorData.acc_z);
+        Log("total accel: %.3f\r\n", totalAccel);
+//        Log("acc: %.2f, %.2f, %.2f\r\n", sensorData.acc_x, sensorData.acc_y, sensorData.acc_z);
+//        Log("gyro: %.2f, %.2f, %.2f\r\n", sensorData.gyro_x, sensorData.gyro_y, sensorData.gyro_z);
+      }
+      else
+      {
+        Log("read sensor failed\r\n");
+      }
     }
 
   }
