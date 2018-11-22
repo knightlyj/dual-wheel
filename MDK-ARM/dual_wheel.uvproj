@@ -453,9 +453,9 @@
               <FilePath>..\Src\spi_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>acc_gyro.c</FileName>
+              <FileName>sensors.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Src\acc_gyro.c</FilePath>
+              <FilePath>..\Src\sensors.c</FilePath>
             </File>
           </Files>
         </Group>

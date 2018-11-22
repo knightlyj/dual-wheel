@@ -56,7 +56,7 @@
 
 /* USER CODE BEGIN Includes */
 #include "sys_time.h"
-#include "acc_gyro.h"
+#include "sensors.h"
 #include "math.h"
 /* USER CODE END Includes */
 
@@ -87,7 +87,8 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
   uint64_t lastPrintTime = 0;
-  AccGyro_Data_t sensorData;
+  AccelData_t accData;
+  GyroData_t gyroData;
   float totalAccel;
   
   SystemClock_Config();
@@ -120,7 +121,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   LL_USART_EnableIT_RXNE(USART2);
-  AccGyro_Init();
+  BMI160_Init();
   Log("init done\r\n");
 
   while (1)
@@ -133,13 +134,11 @@ int main(void)
     {
       SetToCurTime(&lastPrintTime);
 //      Log("%llds\r\n", g_sysTotalTime / 1000);
-      LL_GPIO_ResetOutputPin(GPIOA, LL_GPIO_PIN_1);
-      if(AccGro_GetData(&sensorData) == CL_SUCCESS)
+      if(BMI160_GetData(&accData, &gyroData) == CL_SUCCESS)
       {
-        LL_GPIO_SetOutputPin(GPIOA, LL_GPIO_PIN_1);
-        totalAccel = sqrt(sensorData.acc_x * sensorData.acc_x
-                         + sensorData.acc_y * sensorData.acc_y
-                         + sensorData.acc_z * sensorData.acc_z);
+        totalAccel = sqrt(accData.x * accData.x
+                         + accData.y * accData.y
+                         + accData.z * accData.z);
         Log("total accel: %.3f\r\n", totalAccel);
 //        Log("acc: %.2f, %.2f, %.2f\r\n", sensorData.acc_x, sensorData.acc_y, sensorData.acc_z);
 //        Log("gyro: %.2f, %.2f, %.2f\r\n", sensorData.gyro_x, sensorData.gyro_y, sensorData.gyro_z);
