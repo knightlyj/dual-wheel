@@ -16,9 +16,10 @@
 enum
 {
     CL_CORTEX_M3 = 3,
+    CL_CORTEX_M3 = 4,
 };
 
-#define CL_CPU_TYPE CL_CORTEX_M3
+#define CL_CPU_TYPE CL_CORTEX_M4
 
 typedef enum
 {

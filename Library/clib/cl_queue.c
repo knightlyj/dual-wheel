@@ -3,7 +3,7 @@
 
 #define DATA_CPY(DST, SRC, SIZE) memcpy(DST, SRC, SIZE)
 
-CL_RESULT CL_QueueAdd(CL_QueueType_t *q, void *data)
+CL_RESULT CL_QueueAdd(CL_QueueInfo_t *q, void *data)
 {
     if (CL_QueueFull(q))
         return CL_FAILED;
@@ -25,7 +25,7 @@ CL_RESULT CL_QueueAdd(CL_QueueType_t *q, void *data)
     return CL_SUCCESS;
 }
 
-CL_RESULT CL_QueuePoll(CL_QueueType_t *q, void *data)
+CL_RESULT CL_QueuePoll(CL_QueueInfo_t *q, void *data)
 {
     if (CL_QueueEmpty(q))
         return CL_FAILED;
@@ -46,7 +46,7 @@ CL_RESULT CL_QueuePoll(CL_QueueType_t *q, void *data)
     return CL_SUCCESS;
 }
 
-CL_RESULT CL_QueuePeek(CL_QueueType_t *q, void *data)
+CL_RESULT CL_QueuePeek(CL_QueueInfo_t *q, void *data)
 {
     if (CL_QueueEmpty(q))
         return CL_FAILED;
