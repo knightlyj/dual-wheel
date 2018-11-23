@@ -10,13 +10,13 @@ typedef struct
 void Quaternion_Normalize(Quaternion_t* q);
 
 //转换为轴和角度
-void Quaternion_ToAngleAxis(Vector3_t* axis, float* angle);
+void Quaternion_ToAngleAxis(Vector3* axis, float* angle);
 
 //从轴-角度获取四元数
-void Quaternion_FromAngleAxis(Quaternion_t* q, Vector3_t* axis, float angle);
+void Quaternion_FromAngleAxis(Quaternion_t* q, Vector3* axis, float angle);
 
 //旋转v,如果out为NULL,则把结果放在v
-void Quaternion_Rotate(Quaternion_t* q, Vector3_t* v, Vector3_t* out);
+void Quaternion_Rotate(Quaternion_t* q, Vector3* v, Vector3* out);
 
 
 
