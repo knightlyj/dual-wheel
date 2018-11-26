@@ -1,15 +1,12 @@
 #pragma once
 
+#include "mathex.h"
 #include "vector3.h"
-#include "math.h"
 #include "stdint.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#define ANGLE_TO_RADIAN(angle)          ((float)angle * M_PI / 180.0f)
-#define RADIAN_TO_ANGLE(radian)         (radian * 180 / M_PI)   
 
 typedef struct
 {
@@ -35,6 +32,9 @@ void Quaternion_Rotate(const Quaternion* q, const Vector3* v, Vector3* out);
 
 //相乘,out不能为NULL,可以为q1或q2或其他值
 void Quaternion_Multiply(const Quaternion* q1, const Quaternion* q2, Quaternion* out);
+
+//判断相等
+uint8_t Quaternion_Equal(const Quaternion* q1, const Quaternion* q2);
 
 void Quaternion_ToString(const Quaternion* q, char* buff);
 

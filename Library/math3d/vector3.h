@@ -1,5 +1,7 @@
 #pragma once
 
+#include "stdint.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -44,7 +46,8 @@ extern "C" {
     //从v1到normal所在平面投影,out可以为v1或normal
     void Vector3_ProjectOnPlane(const Vector3* v1, const Vector3* normal, Vector3* out);
 
-    
+    //判断相等
+    uint8_t Vector3_Equal(const Vector3* v1, const Vector3* v2);
 
     //打印
     void Vector3_ToString(const Vector3* v, char* buff);

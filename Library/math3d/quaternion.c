@@ -99,6 +99,19 @@ void Quaternion_Multiply(const Quaternion* q1, const Quaternion* q2, Quaternion*
     UpdateMatrix(out);
 }
 
+uint8_t Quaternion_Equal(const Quaternion* q1, const Quaternion* q2)
+{
+    float x, y, z, w;
+    float sqrMagnitude;
+    x = q1->x - q2->x;
+    y = q1->y - q2->y;
+    z = q1->z - q2->z;
+    w = q1->w - q2->w;
+
+    sqrMagnitude = x * x + y * y + z * z + w * w;
+    return FLOAT_EQUAL(sqrMagnitude, 0);
+}
+
 void Quaternion_ToString(const Quaternion* q, char* buff)
 {
     sprintf(buff, "{%.2f, (%.2f, %.2f, %.2f)}", q->w, q->x, q->y, q->z);

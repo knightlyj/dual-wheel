@@ -1,6 +1,6 @@
 #include "vector3.h"
 #include "stdio.h"
-#include "math.h"
+#include "mathex.h"
 
 float Vector3_Dot(const Vector3* v1, const Vector3* v2)
 {
@@ -104,6 +104,14 @@ void Vector3_Subtract(const Vector3* v1, const Vector3* v2, Vector3* out)
     out->z = v1->z - v2->z;
 }
 
+uint8_t Vector3_Equal(const Vector3* v1, const Vector3* v2)
+{
+    Vector3 diff;
+    Vector3_Subtract(v1, v2, &diff);
+    float sqrMag = Vector3_SqrMagnitude(&diff);
+
+    return FLOAT_EQUAL(Vector3_SqrMagnitude(&diff), 0);
+}
 
 void Vector3_ToString(const Vector3* v, char* buff)
 {
