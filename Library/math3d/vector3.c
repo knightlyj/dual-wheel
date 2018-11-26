@@ -1,6 +1,6 @@
 #include "vector3.h"
-#include "math.h"
 #include "stdio.h"
+#include "math.h"
 
 float Vector3_Dot(Vector3* v1, Vector3* v2)
 {
@@ -75,7 +75,7 @@ float Vector3_Radian(Vector3* v1, Vector3* v2)
     float cos;
 
     cos = Vector3_Dot(v1, v2) / Vector3_Magnitude(v1) / Vector3_Magnitude(v2);
-    return acos(cos);
+    return acosf(cos);
 }
 
 void Vector3_Project(Vector3* v1, Vector3* v2, Vector3* out)
