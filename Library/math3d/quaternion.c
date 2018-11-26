@@ -16,12 +16,12 @@ static void UpdateMatrix(Quaternion* q)
 }
 
 
-float Quaternion_Magnitude(Quaternion* q)
+float Quaternion_Magnitude(const Quaternion* q)
 {
     return sqrtf(q->x * q->x
-                 + q->y * q->y
-                 + q->z * q->z
-                 + q->w * q->w);
+        + q->y * q->y
+        + q->z * q->z
+        + q->w * q->w);
 }
 
 
@@ -37,11 +37,8 @@ void Quaternion_Normalize(Quaternion* q)
     UpdateMatrix(q);
 }
 
-void Quaternion_ToRadianAxis(Quaternion* q, Vector3* axis, float* theta, uint8_t normalized)
+void Quaternion_ToRadianAxis(Quaternion* q, Vector3* axis, float* theta)
 {
-    if (!normalized)
-        Quaternion_Normalize(q);
-
     *theta = acosf(q->w) * 2;
 
     axis->x = q->x;
@@ -70,30 +67,23 @@ void Quaternion_FromRadianAxis(Quaternion* q, Vector3* axis, float theta, uint8_
 }
 
 
-void Quaternion_Rotate(Quaternion* q, Vector3* v, Vector3* out)
+void Quaternion_Rotate(const Quaternion* q, const Vector3* v, Vector3* out)
 {
     float x, y, z;
     x = q->mat[0][0] * v->x + q->mat[0][1] * v->y + q->mat[0][2] * v->z;
     y = q->mat[1][0] * v->x + q->mat[1][1] * v->y + q->mat[1][2] * v->z;
     z = q->mat[2][0] * v->x + q->mat[2][1] * v->y + q->mat[2][2] * v->z;
-    if (out)
-    {
-        out->x = x;
-        out->y = y;
-        out->z = z;
-    }
-    else
-    {
-        v->x = x;
-        v->y = y;
-        v->z = z;
-    }
+
+    out->x = x;
+    out->y = y;
+    out->z = z;
 }
 
-void Quaternion_Multiply(Quaternion* q1, Quaternion* q2, Quaternion* out)
+void Quaternion_Multiply(const Quaternion* q1, const Quaternion* q2, Quaternion* out)
 {
     Vector3 v;
-    out->w = q1->w * q2->w - Vector3_Dot((Vector3*)q1, (Vector3*)q2);
+    float w;
+    w = q1->w * q2->w - Vector3_Dot((Vector3*)q1, (Vector3*)q2);
 
     Vector3_Cross((Vector3*)q1, (Vector3*)q2, &v);
 
@@ -104,5 +94,13 @@ void Quaternion_Multiply(Quaternion* q1, Quaternion* q2, Quaternion* out)
     out->x = v.x;
     out->y = v.y;
     out->z = v.z;
+    out->w = w;
+
+    UpdateMatrix(out);
+}
+
+void Quaternion_ToString(const Quaternion* q, char* buff)
+{
+    sprintf(buff, "{%.2f, (%.2f, %.2f, %.2f)}", q->w, q->x, q->y, q->z);
 }
 

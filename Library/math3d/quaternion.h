@@ -9,7 +9,7 @@ extern "C" {
 #endif
 
 #define ANGLE_TO_RADIAN(angle)          ((float)angle * M_PI / 180.0f)
-#define RADIAN_TO_ANGLE(radian)         (randian * 180 / M_PI)   
+#define RADIAN_TO_ANGLE(radian)         (radian * 180 / M_PI)   
 
 typedef struct
 {
@@ -19,22 +19,24 @@ typedef struct
 } Quaternion;
 
 //取摸
-float Quaternion_Magnitude(Quaternion* q);
+float Quaternion_Magnitude(const Quaternion* q);
 
 //标准化
 void Quaternion_Normalize(Quaternion* q);
 
 //转换为轴和弧度
-void Quaternion_ToRadianAxis(Quaternion* q, Vector3* axis, float* theta, uint8_t normalized);
+void Quaternion_ToRadianAxis(Quaternion* q, Vector3* axis, float* theta);
 
 //从轴-弧度获取四元数
 void Quaternion_FromRadianAxis(Quaternion* q, Vector3* axis, float theta, uint8_t normalized);
 
-//旋转v,如果out为NULL,则把结果放在v
-void Quaternion_Rotate(Quaternion* q, Vector3* v, Vector3* out);
+//旋转v,out可以是v
+void Quaternion_Rotate(const Quaternion* q, const Vector3* v, Vector3* out);
 
 //相乘,out不能为NULL,可以为q1或q2或其他值
-void Quaternion_Multiply(Quaternion* q1, Quaternion* q2, Quaternion* out);
+void Quaternion_Multiply(const Quaternion* q1, const Quaternion* q2, Quaternion* out);
+
+void Quaternion_ToString(const Quaternion* q, char* buff);
 
 #ifdef __cplusplus
 }
