@@ -3,6 +3,7 @@
 #include "spi_gpio.h"
 #include "sys_time.h"
 #include "stm32f4xx_ll_gpio.h"
+#include "mathex.h"
 
 //-----------------------------------------------------
 //                  bmi160
@@ -98,7 +99,7 @@ CL_RESULT BMI160_Init(void)
 }
 
 #if __ACC_RANGE == BMI160_ACCEL_RANGE_8G
-const float accResolution = 0.00024415f; //以g为单位
+const float accResolution = (8.0f * GRAVITY / 32767.0f); 
 #endif
 
 #if __GYRO_RANGE == BMI160_GYRO_RANGE_2000_DPS
@@ -140,12 +141,6 @@ CL_RESULT BMI160_GetData(AccelData_t* accData, GyroData_t* gyroData)
         return CL_FAILED;
     }
 }
-
-CL_RESULT BMI160_CalibrateAccel(void)
-{
-
-}
-
 
 //-------------------------------------------------------
 

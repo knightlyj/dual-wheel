@@ -17,6 +17,8 @@ extern "C" {
 //弧度转为角度
 #define RADIAN_TO_ANGLE(radian)         (radian * 180 / M_PI)   
 
+//重力
+#define GRAVITY       (9.80665f)
 
 #ifdef __cplusplus
 }

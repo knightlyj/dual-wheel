@@ -1,4 +1,5 @@
 #include "quaternion.h"
+#include "stdio.h"
 
 static void UpdateMatrix(Quaternion* q)
 {

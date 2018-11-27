@@ -58,6 +58,7 @@
 #include "sys_time.h"
 #include "sensors.h"
 #include "math.h"
+#include "attitude.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -86,11 +87,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  uint64_t lastPrintTime = 0;
-  AccelData_t accData;
-  GyroData_t gyroData;
-  float totalAccel;
-  
+  static uint64_t lastPrintTime = 0;
   SystemClock_Config();
   /* USER CODE END 1 */
 
@@ -127,6 +124,7 @@ int main(void)
   while (1)
   {
     IWDG_Process();
+    Attitude_Process();
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -134,21 +132,9 @@ int main(void)
     {
       SetToCurTime(&lastPrintTime);
 //      Log("%llds\r\n", g_sysTotalTime / 1000);
-      if(BMI160_GetData(&accData, &gyroData) == CL_SUCCESS)
-      {
-        totalAccel = sqrt(accData.x * accData.x
-                         + accData.y * accData.y
-                         + accData.z * accData.z);
-        Log("total accel: %.3f\r\n", totalAccel);
-//        Log("acc: %.2f, %.2f, %.2f\r\n", sensorData.acc_x, sensorData.acc_y, sensorData.acc_z);
-//        Log("gyro: %.2f, %.2f, %.2f\r\n", sensorData.gyro_x, sensorData.gyro_y, sensorData.gyro_z);
-      }
-      else
-      {
-        Log("read sensor failed\r\n");
-      }
+      
     }
-
+    
   }
   /* USER CODE END 3 */
 

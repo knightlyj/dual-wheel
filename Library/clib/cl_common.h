@@ -13,6 +13,11 @@
 #include "string.h"
 #include "stdio.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 enum
 {
     CL_CORTEX_M3 = 3,
@@ -33,7 +38,7 @@ typedef enum
 
     CL_FAILED = -1,
     CL_INVALID_PARAM = -2,
-    
+
 } CL_RESULT;
 
 
@@ -44,11 +49,15 @@ typedef enum
 #ifdef _DEBUG
 #include "assert.h"
 #else
-#define assert(expression)      
+#define assert(expression)
 #endif
 
 #define CL_ARRAY_LENGTH(array)      (sizeof(array) / sizeof(array[0]))
 
 #define Log     printf
+
+#ifdef __cplusplus
+}
+#endif
 
 

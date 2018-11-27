@@ -7,6 +7,11 @@
 
 #include "cl_common.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /**
 * @brief 队列所用数据结构
 */
@@ -148,4 +153,10 @@ CL_STATIC_INLINE CL_BOOL CL_QueueFull(CL_QueueInfo_t *q){
 	for(data_ptr = ((data_type *)((q_ptr)->data)) + (q_ptr)->head; \
 		data_ptr != ((data_type *)((q_ptr)->data)) + (q_ptr)->tail; \
 		(++data_ptr) >= ((data_type *)((q_ptr)->data) + (q_ptr)->capacity) ? data_ptr = (data_type *)((q_ptr)->data) : data_ptr)
+
+
+#ifdef __cplusplus
+}
+#endif
+
 

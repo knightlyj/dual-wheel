@@ -351,7 +351,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_FULL_LL_DRIVER,USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Library/clib;../Drivers/BMI160</IncludePath>
+              <IncludePath>../Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Library/clib;../Drivers/BMI160;../Library/math3d</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -456,6 +456,11 @@
               <FileName>sensors.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Src\sensors.c</FilePath>
+            </File>
+            <File>
+              <FileName>attitude.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Src\attitude.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -641,6 +646,26 @@
               <FileName>cl_queue.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Library\clib\cl_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>cl_fsm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\clib\cl_fsm.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Math3D</GroupName>
+          <Files>
+            <File>
+              <FileName>vector3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\math3d\vector3.c</FilePath>
+            </File>
+            <File>
+              <FileName>quaternion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Library\math3d\quaternion.c</FilePath>
             </File>
           </Files>
         </Group>
