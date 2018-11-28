@@ -647,11 +647,6 @@
               <FileType>1</FileType>
               <FilePath>..\Library\clib\cl_queue.c</FilePath>
             </File>
-            <File>
-              <FileName>cl_fsm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Library\clib\cl_fsm.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

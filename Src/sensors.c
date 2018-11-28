@@ -108,7 +108,7 @@ const float gyroResolution = 0.061037f;  //以度数为单位
 const float gyroResolution = 0.030519f;  //以度数为单位
 #endif
 
-CL_RESULT BMI160_GetData(AccelData_t* accData, GyroData_t* gyroData)
+CL_RESULT BMI160_GetData(Vector3* accData, Vector3* gyroData)
 {
     int8_t res;
     

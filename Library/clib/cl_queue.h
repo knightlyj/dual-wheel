@@ -146,13 +146,14 @@ CL_STATIC_INLINE CL_BOOL CL_QueueFull(CL_QueueInfo_t *q){
  *      char* data;
  *      CL_QUEUE_FOR_EACH(my_queue, data, char)    //迭代访问队列中每个数据
  *      {
- *          printf("%c", *data);    //把这个数据打印出来
+ *          printf("%c", *data);    //把这个数据打印出来               
  *      }
  */
 #define CL_QUEUE_FOR_EACH(q_ptr, data_ptr, data_type) \
-	for(data_ptr = ((data_type *)((q_ptr)->data)) + (q_ptr)->head; \
-		data_ptr != ((data_type *)((q_ptr)->data)) + (q_ptr)->tail; \
-		(++data_ptr) >= ((data_type *)((q_ptr)->data) + (q_ptr)->capacity) ? data_ptr = (data_type *)((q_ptr)->data) : data_ptr)
+    data_ptr = ((data_type *)((q_ptr)->data)) + (q_ptr)->head; \
+	for(int ___q_itrcnt___ = (q_ptr)->length; \
+		___q_itrcnt___ != 0; \
+		___q_itrcnt___--, (++data_ptr) >= ((data_type *)((q_ptr)->data) + (q_ptr)->capacity) ? data_ptr = (data_type *)((q_ptr)->data) : data_ptr)
 
 
 #ifdef __cplusplus
