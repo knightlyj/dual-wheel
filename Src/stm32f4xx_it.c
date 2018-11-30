@@ -38,6 +38,7 @@
 /* USER CODE BEGIN 0 */
 #include "sys_time.h"
 #include "usart.h"
+#include "attitude.h"
 
 /* USER CODE END 0 */
 
@@ -206,6 +207,7 @@ void USART2_IRQHandler(void)
     {   //接收DR有数据
         /* Read one byte from the receive data register */
         data = LL_USART_ReceiveData8(USART2);
+        Attitude_RecvCmd(data);
     }
 
     if(LL_USART_IsActiveFlag_TXE(USART2))
