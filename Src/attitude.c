@@ -7,7 +7,7 @@
 
 char printBuff[128];
 
-static Vector3 gyroStaticError;
+static Vector3 gyroStaticError; //ÍÓÂÝÒÇ¾²Ì¬Æ«²î
 
 
 //-------------------------------´«¸ÐÆ÷ÎÈ¶¨ÅÐ¶Ï-----------------------------------

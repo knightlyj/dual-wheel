@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttitudeDebugger", "AttitudeDebugger\AttitudeDebugger.csproj", "{C99DEAFB-5882-4AF1-87E7-4F3420638245}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttitudeDisplay", "AttitudeDisplay\AttitudeDisplay.csproj", "{F0240DE1-4238-4476-AE42-21A12390161C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C99DEAFB-5882-4AF1-87E7-4F3420638245}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C99DEAFB-5882-4AF1-87E7-4F3420638245}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C99DEAFB-5882-4AF1-87E7-4F3420638245}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C99DEAFB-5882-4AF1-87E7-4F3420638245}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0240DE1-4238-4476-AE42-21A12390161C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0240DE1-4238-4476-AE42-21A12390161C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0240DE1-4238-4476-AE42-21A12390161C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0240DE1-4238-4476-AE42-21A12390161C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
